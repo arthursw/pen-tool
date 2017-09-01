@@ -6,7 +6,7 @@ var ctx = c.getContext("2d");
 let dragging = false;
 let mousePosition = new paper.Point()
 
-window.onmousedown = function(event) {
+let onmousedown = function(event) {
 	dragging = true;
 	mousePosition.x = event.clientX;
 	mousePosition.y = event.clientY;
@@ -14,7 +14,7 @@ window.onmousedown = function(event) {
 	ctx.strokeWidth = 5;
 }
 
-window.onmousemove = function(event) {
+let onmousemove = function(event) {
     // ctx.fillStyle = 'rgb(200, 0, 0)';
     // ctx.fillRect(10, 10, 50, 50);
 	// ctx.fillStyle = 'rgb(0, 0, 0)';
@@ -33,10 +33,18 @@ window.onmousemove = function(event) {
 	mousePosition.y = event.clientY;
 }
 
-window.onmouseup = function(event) {
+let onmouseup = function(event) {
 	dragging = false;
 }
 
+window.onmousedown = onmousedown
+window.onmousemove = onmousemove
+window.onmouseup = onmouseup
+
+window.addEventListener("touchstart", onmousedown, false);
+window.addEventListener("touchend", onmouseup, false);
+window.addEventListener("touchcancel", onmouseup, false);
+window.addEventListener("touchmove", onmousemove, false);
 
 // var canvas = document.getElementById('canvas');
 // paper.setup(canvas);
