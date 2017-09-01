@@ -11,7 +11,7 @@ let onmousedown = function(event) {
 	mousePosition.x = event.clientX;
 	mousePosition.y = event.clientY;
 	ctx.strokeStyle = 'rgb(0, 0, 0)';
-	ctx.strokeWidth = 5;
+	ctx.lineWidth = 5;
 }
 
 let onmousemove = function(event) {
@@ -41,10 +41,10 @@ window.onmousedown = onmousedown
 window.onmousemove = onmousemove
 window.onmouseup = onmouseup
 
-window.addEventListener("touchstart", onmousedown, false);
-window.addEventListener("touchend", onmouseup, false);
-window.addEventListener("touchcancel", onmouseup, false);
-window.addEventListener("touchmove", onmousemove, false);
+canvas.addEventListener("touchstart", onmousedown, false);
+canvas.addEventListener("touchend", onmouseup, false);
+canvas.addEventListener("touchcancel", onmouseup, false);
+canvas.addEventListener("touchmove", onmousemove, false);
 
 // var canvas = document.getElementById('canvas');
 // paper.setup(canvas);
