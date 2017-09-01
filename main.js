@@ -6,22 +6,25 @@ var ctx = c.getContext("2d");
 let dragging = false;
 let mousePosition = new paper.Point()
 
-let onmousedown = function(event) {
+let getEventPosition = function(event) {
+	return new paper.Point(event.clientX || event.touches[0].clientX, event.clientY || event.touches[0].clientY)
+}
+
+let onMouseDown = function(event) {
 	dragging = true;
-	mousePosition.x = event.clientX;
-	mousePosition.y = event.clientY;
+	mousePosition = getEventPosition(event)
 	ctx.strokeStyle = 'rgb(0, 0, 0)';
 	ctx.lineWidth = 5;
 }
 
-let onmousemove = function(event) {
+let onMouseMove = function(event) {
     // ctx.fillStyle = 'rgb(200, 0, 0)';
     // ctx.fillRect(10, 10, 50, 50);
 	// ctx.fillStyle = 'rgb(0, 0, 0)';
 	if(dragging) {
-		
+		position = getEventPosition(event)
 		ctx.moveTo(mousePosition.x, mousePosition.y);
-		ctx.lineTo(event.clientX, event.clientY);
+		ctx.lineTo(position.x, position.y);
 		ctx.stroke();
 
 		// ctx.beginPath();
@@ -29,22 +32,22 @@ let onmousemove = function(event) {
 		// ctx.fill();
 		// ctx.stroke();
 	}
-	mousePosition.x = event.clientX;
-	mousePosition.y = event.clientY;
+	mousePosition = getEventPosition(event)
 }
 
-let onmouseup = function(event) {
+let onMouseUp = function(event) {
 	dragging = false;
 }
 
-window.onmousedown = onmousedown
-window.onmousemove = onmousemove
-window.onmouseup = onmouseup
+canvas.addEventListener("touchstart", onMouseDown, false);
+canvas.addEventListener("touchend", onMouseUp, false);
+// canvas.addEventListener("touchcancel", onmouseup, false);
+canvas.addEventListener("touchmove", onMouseMove, false);
 
-canvas.addEventListener("touchstart", onmousedown, false);
-canvas.addEventListener("touchend", onmouseup, false);
-canvas.addEventListener("touchcancel", onmouseup, false);
-canvas.addEventListener("touchmove", onmousemove, false);
+window.onmousedown = onMouseDown
+window.onmousemove = onMouseMove
+window.onmouseup = onMouseUp
+
 
 // var canvas = document.getElementById('canvas');
 // paper.setup(canvas);
